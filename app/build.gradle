@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'jacoco'
 }
 
 repositories {
@@ -22,7 +23,7 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
-
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -34,10 +35,21 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.App'
+    mainClass = 'org.booking.App'
 }
 
 tasks.named('test') {
     // Use TestNG for unit tests.
     useTestNG()
+    finalizedBy jacocoTestReport // Automatically generate coverage report after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // Tests are required to run before generating the report
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
+    }
 }

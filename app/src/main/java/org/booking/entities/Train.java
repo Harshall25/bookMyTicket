@@ -1,25 +1,40 @@
 package org.booking.entities;
 
-import java.sql.Time;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.util.List;
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Train {
 
     private String trainId;
+
+    @JsonProperty("train_no")
     private String trainNumber;
+
+    @JsonProperty("seats")
     private List<List<Integer>> trainSeats;
-    private Map<String, Time> stationTime;
+
+    @JsonProperty("station_times")
+    private Map<String, String> stationTimes;
+
+    @JsonProperty("stations")
     private List<String> stations;
 
     public Train() {
     }
 
-    public Train(String trainId, String trainNumber, List<List<Integer>> trainSeats, Map<String, Time> stationTime, List<String> stations) {
+    public Train(String trainId, String trainNumber, List<List<Integer>> trainSeats, Map<String, String> stationTimes, List<String> stations) {
         this.trainId = trainId;
         this.trainNumber = trainNumber;
         this.trainSeats = trainSeats;
-        this.stationTime = stationTime;
+        this.stationTimes = stationTimes;
         this.stations = stations;
     }
 
@@ -47,12 +62,12 @@ public class Train {
         this.trainSeats = trainSeats;
     }
 
-    public Map<String, Time> getStationTime() {
-        return stationTime;
+    public Map<String, String> getStationTimes() {
+        return stationTimes;
     }
 
-    public void setStationTime(Map<String, Time> stationTime) {
-        this.stationTime = stationTime;
+    public void setStationTimes(Map<String, String> stationTimes) {
+        this.stationTimes = stationTimes;
     }
 
     public List<String> getStations() {
@@ -63,31 +78,7 @@ public class Train {
         this.stations = stations;
     }
 
-    // Convenience aliases
-    public String getTrainNo() {
-        return trainNumber;
-    }
-
-    public void setTrainNo(String trainNo) {
-        this.trainNumber = trainNo;
-    }
-
-    public List<List<Integer>> getSeats() {
-        return trainSeats;
-    }
-
-    public void setSeats(List<List<Integer>> seats) {
-        this.trainSeats = seats;
-    }
-
-    public Map<String, Time> getStationTimes() {
-        return stationTime;
-    }
-
-    public void setStationTimes(Map<String, Time> stationTimes) {
-        this.stationTime = stationTimes;
-    }
-
+    @JsonIgnore
     public String getTrainInfo() {
         return String.format("Train ID: %s Train No: %s", trainId, trainNumber);
     }
