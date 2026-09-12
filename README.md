@@ -1,7 +1,8 @@
 # BookMyTicket CLI
 
-A terminal-based train ticket booking system written in Java.
+A terminal-based train ticket booking system written in Java.                                                                   
 
+[![CodeFactor](https://www.codefactor.io/repository/github/harshall25/bookmyticket/badge)](https://www.codefactor.io/repository/github/harshall25/bookmyticket)
 ## Features
 - **User Authentication:** Sign up (hashed passwords via BCrypt) and secure login.
 - **Search:** Find available trains based on origin and sequential destination.
